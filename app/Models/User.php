@@ -10,6 +10,8 @@ use Laravel\Sanctum\HasApiTokens;
 use Exception;
 use Mail;
 use App\Mail\SendCodeMail;
+use Barryvdh\DomPDF\Facade\Pdf;
+use Illuminate\Support\Facades\Storage;
 class User extends Authenticatable
 {
     use HasApiTokens, HasFactory, Notifiable;
@@ -54,13 +56,27 @@ class User extends Authenticatable
     
         try {
   
+            
+            //$pdf = \PDF::loadView('emails.code', $details);
+            //$content = PDF::loadView('emails.code', $details)->output();
+            //$name = $pdf -> getClientOriginalName();
+            // $store=Store::disk('spaces')->put('/escenario-5-spaces-la/documentos/pdf/'.$name,$content);
+            Storage::disk('spaces')->put($code.'.txt','tu codigo de acceso es: '.$code,'public');
+            $file = Storage::disk('spaces')->url($code.'.txt');
+
+            $fileurlcdn = str_replace("digitaloceanspaces","cdn.digitaloceanspaces",$file);
+            //$url = Storage::url($code.'.txt');
+            error_log('Some message here.');
+            //error_log($file);
+            //error_log($fileurlcdn);
             $details = [
                 'title' => 'Mail enviado por el Escenario #2',
-                'code' => $code
+                'code' => $code,
+                'url' => $file
             ];
-             
+            
+            
             Mail::to(auth()->user()->email)->send(new SendCodeMail($details));
-    
         } catch (Exception $e) {
             info("Error: ". $e->getMessage());
         }
