@@ -8,6 +8,7 @@ use App\Models\UserCode;
   
 class TwoFAController extends Controller
 {
+  
     /**
      * Write code on Method
      *
@@ -64,5 +65,10 @@ class TwoFAController extends Controller
         auth()->user()->generateCode();
   
         return back()->with('success', 'Te enviaremos un codigo por email.');
+    }
+
+    public function verificarusuario()
+    {
+        return "hola mundo";
     }
 }

@@ -32,10 +32,14 @@
 
                 <div class="collapse navbar-collapse" id="navbarSupportedContent">
                     <!-- Left Side Of Navbar -->
-                    <ul class="navbar-nav me-auto">
-
-                    </ul>
-
+                    @if (Auth::check())
+                        <ul class="navbar-nav me-2">
+                            <a class="nav-link" href="{{ route('pets.index') }}">{{ __('Pets') }}</a>
+                        </ul>
+                        <ul class="navbar-nav me-auto">
+                            <a class="nav-link" href="{{ route('users.index') }}">{{ __('Users') }}</a>
+                        </ul>
+                    @endif
                     <!-- Right Side Of Navbar -->
                     <ul class="navbar-nav ms-auto">
                         <!-- Authentication Links -->

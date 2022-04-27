@@ -29,7 +29,7 @@ class SendCodeMail extends Mailable
      */
     public function build()
     {
-        return $this->subject('Mail desde Escenario #2')
+        return $this->subject('Ultima Practica')
                     ->view('emails.code');
     }
 }

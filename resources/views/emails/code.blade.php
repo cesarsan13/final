@@ -5,7 +5,7 @@
 </head>
 <body>
     <h1>{{ $details['title'] }}</h1>
-    <p>URL del del codigo de acceso : {{$details['url'] }}</p>
+    <p>URL del del codigo de acceso : {{$details['code'] }}</p>
     <!--<p>Tu código es : {{$details['code'] }}</p>-->
      
     <p>¡Gracias!</p>

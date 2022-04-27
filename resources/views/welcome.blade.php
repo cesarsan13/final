@@ -21,6 +21,31 @@
         </style>
     </head>
     <body class="antialiased">
+    <script src="https://cdn.socket.io/4.4.1/socket.io.min.js" integrity="sha384-fKnu0iswBIqkjxrhQCTZ7qlLHOFEgNkRmK2vaO/LbTZSXdJfAu6ewRBdwHPhBo/H" crossorigin="anonymous"></script>
+    <script src="https://code.jquery.com/jquery-3.6.0.js" integrity="sha256-H+K7U5CnXl1h5ywQfKtSj8PCmoN9aaq30gDh27Xc0jk=" crossorigin="anonymous"></script>
+    <script>    
+        $(function(){
+            let ip_addres = '127.0.0.1';
+            let socket_port = '3000';
+            let socket = io(ip_addres + ':' + socket_port);
+
+            // socket.on('connection');
+            let chatInput = $("#chatInput");
+            chatInput.keypress(function(e){
+                let message = $(this).html();
+                console.log(message);
+                if (e.which===13 && !e.shiftKey) {
+                    socket.emit('sendToServer',message);
+                    chatInput.html('');
+                    return false;
+                }
+            });
+            socket.on('sendToClient',(message)=>{
+                $('.chat-content ul').append(`<li>${message}</li>`);
+            });
+            // socket.on('conectar');
+        });
+    </script>
         <div class="relative flex items-top justify-center min-h-screen bg-gray-100 dark:bg-gray-900 sm:items-center py-4 sm:pt-0">
             @if (Route::has('login'))
                 <div class="hidden fixed top-0 right-0 px-6 py-4 sm:block">
